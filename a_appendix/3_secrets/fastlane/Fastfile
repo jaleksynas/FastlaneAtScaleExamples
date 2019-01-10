@@ -1,0 +1,8 @@
+# Secret examples:
+# => fastlane requires_secrets
+# => FL_GITHUB_API_TOKEN=WORKS_BEST_IF_SET_BY_SOME_OTHER_TOOL fastlane requires_secret
+
+lane :requires_secrets do 
+  UI.important "Using API token: #{ENV['FL_GITHUB_API_TOKEN']}"
+  github_api # This action requires a github API token.
+end

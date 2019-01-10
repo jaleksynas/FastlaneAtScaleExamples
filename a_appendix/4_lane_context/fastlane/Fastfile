@@ -1,0 +1,12 @@
+# lane_context examples...
+
+lane :build_and_upload_overconfigured do 
+  path_to_ipa = build_ios_app  # This action returns the path to the ipa... but...
+  upload_to_testflight(ipa: path_to_ipa) # explicitly passing the value is unnecessary.
+end
+
+lane :build_and_upload do 
+  build_ios_app  # This action puts the path into a special location called a lane_context...
+  upload_to_testflight # which is automatically picked up by this action
+  UI.message "You can also get at the values as needed for other purposes thusly: lane_context['IPA_OUTPUT_PATH']: #{lane_context['IPA_OUTPUT_PATH']}"
+end

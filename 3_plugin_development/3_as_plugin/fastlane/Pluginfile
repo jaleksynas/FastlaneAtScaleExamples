@@ -1,0 +1,1 @@
+gem 'fastlane-plugin-wave_from', path: '../fastlane-plugin-wave_from'

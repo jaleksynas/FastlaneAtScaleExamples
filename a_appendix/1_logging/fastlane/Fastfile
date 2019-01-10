@@ -1,0 +1,48 @@
+# Logging examples:
+# => fastlane too_loud
+# => fastlane too_quiet
+# => fastlane too_quiet --troubleshoot
+# => fastlane just_right
+# => fastlane ui_colors
+# => fastlane ui_colors --verbose
+
+shell_command = "ls -l"
+
+lane :too_loud do
+  list_files
+end
+
+lane :too_quiet do
+  UI.important "Running a shell script"
+  sh(shell_command, log: false) # suppress command printing and command output
+  sh("exit 65", log: false) do UI.verbose "Something went horribly wrong" end  # suppress command printing and command output and ignore failure
+end
+
+lane :just_right do
+  UI.important "Running a shell script"
+  sh shell_command
+  sh "exit 65" do UI.user_error! "Something went horribly wrong" end # properly exit on failure with nice-ish message 
+end
+
+private_lane :list_files do
+  # notice that we "cruise" over to this lane creating extra headers
+  # notice the extra entry in the summary table as well
+  UI.important "Running a shell script"
+  sh shell_command
+
+  # notice the long entry in headers, and truncation in summary table
+  sh "echo 'some really really long string, or series of commands' | grep really && exit 65" do true end  # ignore failure
+
+end
+
+lane :ui_colors do
+  interface_methods = FastlaneCore::Interface.instance_methods - Object.instance_methods
+  UI.command_output "All Available UI methods: #{interface_methods}"
+
+  UI.message "Plain old black."
+  UI.important "Yellow so you can see it."
+  UI.error "Red, but keep running."
+  UI.verbose "Shown only when --verbose is passed."
+
+  UI.user_error! "Red, fail and raise an exception."
+end

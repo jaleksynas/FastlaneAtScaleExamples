@@ -1,0 +1,5 @@
+scheme 'Debug' # default value
+
+for_lane :my_release_process do
+  scheme 'Release'
+end

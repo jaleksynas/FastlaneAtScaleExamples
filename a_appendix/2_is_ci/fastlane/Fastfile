@@ -1,0 +1,23 @@
+# Example of only doing something in or out of ci.
+#=> fastlane my_process
+#=> JENKINS_URL=foo fastlane my_process
+
+before_all do
+  ci_stuff
+end
+
+lane :my_process do 
+  UI.message "Only do this when in CI" if Helper.is_ci?
+  UI.message "Only do this when out of CI" unless Helper.is_ci?
+end
+
+def ci_stuff 
+  return unless Helper.is_ci?
+  UI.message "Doing CI setup actions"
+
+  # For Example... 
+  # unlock_keychain
+  # cocoapods
+end
+
+

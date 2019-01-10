@@ -1,0 +1,43 @@
+# Welcome to Fastlane! 
+# Here are a few examples of the most basic building blocks
+
+# NOTICE:  Although syntactically correct, this cannot run without further configuration and -- of course -- an iOS project!
+
+# To discover what actions are avaialble:
+# => fastlane actions
+
+# To see all the configuration options available for an action try:
+# => fastlane action <action_name>
+
+
+default_platform :ios
+platform :ios do
+  
+  desc "A basic lane that calls a few actions"
+  lane :build_and_upload do 
+    wave_from "the top."        # function: call a ruby function
+    build_ios_app               # action: build an IPA of an iOS application
+    upload_to_app_store         # action: upload the IPA to the AppStore
+  end
+
+  desc "A lane that calls a private_lane"
+  lane :build_test_upload do
+    build_with_tests            # private_lane: call another private lane
+    upload_to_app_store         # action: upload the IPA to the AppStore
+  end
+
+  desc "A lane that can only be called by other lanes, not from the command-line"
+  private_lane :build_with_tests do
+    wave_from "private lane."   # function: call a ruby function
+    run_tests                   # action: run tests
+    build_ios_app               # action: build an IPA of an iOS application
+  end
+
+  # Example ruby function
+  def wave_from(phrase)
+    UI.message "👋 from #{phrase}"
+  end
+
+end
+
+

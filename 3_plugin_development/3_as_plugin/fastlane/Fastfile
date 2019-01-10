@@ -1,0 +1,7 @@
+# => fastlane my_process
+
+lane :my_process do
+  wave_from(phrase: "My process") #The call is slightly different, but handles multiple configuration values.
+end
+
+# 'wave_from' comes from the plugin now, no need to clutter the Fastfile.

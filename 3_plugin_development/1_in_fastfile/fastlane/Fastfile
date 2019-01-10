@@ -1,0 +1,14 @@
+# => fastlane my_process
+
+lane :my_process do
+  wave_from "My process"
+end
+
+# Plain old ruby function for all the complexity
+def wave_from(phrase)
+  UI.message "👋 from #{phrase}"
+  UI.important "Yellow Things"
+  UI.error "Red Things"
+
+  # Open files, parse stuff, whatever wizardry is needed
+end

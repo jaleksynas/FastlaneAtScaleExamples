@@ -1,0 +1,18 @@
+# Running different settings by using an Gymfile.
+# => fastlane my_process
+# => fastlane my_release_process
+
+# To see all the configuration options available for an action try:
+# => fastlane action <action_name>
+
+desc "Build using the Debug scheme" 
+lane :my_process do
+   build_ios_app 
+end
+
+# Two identical lanes are still required to allow for mirrored logic in the Gymfile
+desc "Build using the Release scheme" 
+lane :my_release_process do
+   build_ios_app
+end
+

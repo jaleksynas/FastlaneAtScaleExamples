@@ -1,0 +1,17 @@
+# Try these commands:
+# => fastlane testenv
+# => fastlane testenv --env myconf
+# => fastlane testenv --env production
+# => fastlane testenv --env myconf,production
+
+# For more interesting trials, try setting your shell environment variables first...
+# => export FOO="from shell variable"
+# => export BAR="from shell variable"
+# => export BAZ="from shell variable"
+
+lane :testenv do
+  UI.important "Check out these nifty values:"
+  UI.message "FOO: #{ENV['FOO']}"
+  UI.message "BAR: #{ENV['BAR']}"
+  UI.message "BAZ: #{ENV['BAZ']}"
+end

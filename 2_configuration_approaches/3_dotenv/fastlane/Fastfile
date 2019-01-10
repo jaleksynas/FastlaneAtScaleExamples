@@ -1,0 +1,27 @@
+# Running different settings by using an .env file.
+# => fastlane my_process
+# => fastlane my_process --env release
+
+desc "A clean lane definition with configuration externalized using dotenv"
+lane :my_process do
+   build_ios_app
+end
+
+desc "A counter-example of working too hard"
+lane :never_do_this do
+  build_ios_app(scheme: ENV["GYM_SCHEME"])  # Despite working this is just wasteful.
+end
+
+desc "A counter-example of ignoring all the hard work"
+lane :not_this_either do
+  build_ios_app(scheme: "Debug")  # All values from the env files are trampled.
+end
+
+
+# Verify what "env" was passed on the command-line
+def check_production_account_settings
+  raise "Not using production settings!  Use '--env production'".red unless lane_context[SharedValues::ENVIRONMENT] == 'production'  
+end
+
+def check_dev_account_settings
+  raise "Using production settings!  Please do not specify '--env production'".red if lane_context.include? SharedValues::ENVIRONMENT && lane_context[SharedValues::ENVIRONMENT] != 'dev'
